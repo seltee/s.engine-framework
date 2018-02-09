@@ -1,0 +1,40 @@
+header{
+    padding: 80px;
+    text-align: center;
+    font-size: 72px;
+    text-transform: uppercase;
+}
+
+main{
+    padding: 20px 0 80px 0;
+    margin: auto;
+    width: 980px;
+}
+
+footer{
+    padding: 40px 0;
+    margin: auto;
+    width: 980px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+
+.main-link{
+    font-size: 16px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.main-loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.7);
+    background-image: url("/media/imgs/loader.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: none;
+}
