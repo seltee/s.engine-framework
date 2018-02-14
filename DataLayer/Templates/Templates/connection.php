@@ -37,6 +37,11 @@ $dbTables = $result['DBTables'];
         }else{
             echo '<li>Users table does not exists <a table="users" class="add-table">Create</a></li>';
         }
+        if (in_array('gallery', $dbTables)){
+            echo '<li class="green">Gallery table exists</li>';
+        }else{
+            echo '<li>Gallery table does not exists <a table="gallery" class="add-table">Create</a></li>';
+        }
         ?>
     </ul>
 <?php endif ?>

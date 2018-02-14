@@ -16,6 +16,10 @@ class Package extends \Engine\Package {
         return new Functions\Login($getUserByLoginPassword);
     }
 
+    public function changeUserType(){
+        return new DataSource\MySQL\ChangeUserType;
+    }
+
     public function quit(){
         return new Functions\Quit();
     }

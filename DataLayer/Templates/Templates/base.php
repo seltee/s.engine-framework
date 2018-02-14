@@ -39,11 +39,27 @@
         <footer>
             <a href="https://www.linkedin.com/in/dmitry-shashkov-0b8274121/" target="_blank">(C)Dmitry Shashkov</a>
         </footer>
+
+        <div class="modal error" id="error">
+            <div>
+                <h1>Error!</h1>
+                <div></div>
+            </div>
+        </div>
     </body>
 
     <script>
         $(document).ready(function(){
+            $("#error").click(function(){
+                $("#error").fadeOut(500, function(){
+                    $("#error").hide();
+                })
+            });
 
+            datapoint.setDefaultErrorCallback(function(message){
+                $("#error > div > div").html(message);
+                $("#error").fadeIn(500);
+            });
         });
     </script>
 </html>

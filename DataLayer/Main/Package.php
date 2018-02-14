@@ -7,7 +7,9 @@ class Package extends \Engine\Package {
 
         $getConnectionInfo = $packageMisc->getConnectionInfo();
         $addTableUsers = new DataSource\MySQL\AddTableUsers();
-        return new Functions\AddBasicTable($getConnectionInfo, $addTableUsers);
+        $addTableGallery = new DataSource\MySQL\AddTableGallery();
+
+        return new Functions\AddBasicTable($getConnectionInfo, $addTableUsers, $addTableGallery);
     }
 }
 

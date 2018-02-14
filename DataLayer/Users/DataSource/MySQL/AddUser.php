@@ -9,7 +9,7 @@ class AddUser extends \Engine\MYSQLiDataSourceReq
             return false;
         }
 
-        if (strlen($request) < 4){
+        if (strlen($request->getPassword()) < 4){
             throw new \Exceptions\DefaultException("Password is too short");
         }
 

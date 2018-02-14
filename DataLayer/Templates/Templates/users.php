@@ -97,6 +97,6 @@ try {
             datapoint.call("quit", {}, function(data){
                 location.reload();
             })
-        })
+        });
     });
 </script>

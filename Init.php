@@ -31,6 +31,10 @@ function mediaExist($file){
 //user configuration
 define("SITE_NAME", "S.ENGINE");
 
+define("BIG_IMAGE", 1200);
+define("MEDIUM_IMAGE", 800);
+define("PREVIEW_IMAGE", 240);
+
 if (DEV_SERVER){
     define("SQL_SERVER", "localhost");
     define("SQL_USER", "root");
@@ -41,6 +45,8 @@ if (DEV_SERVER){
 }
 
 define("PASS_SALT", "RAkyEnA&Zd9F3VQ@Tc%aMm&1NuKiW_um#DanW2mgg1LWZJHZ^fn%#8Yb95h#oR#%");
+define("GALLERY_DIR", str_replace('\\', '/', __DIR__.'/www/media/gallery'));
+define("GALLERY_LINK", "/media/gallery");
 
 date_default_timezone_set('Europe/Moscow');
 session_start();

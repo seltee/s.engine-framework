@@ -25,6 +25,11 @@
 </p>
 
 <p>
+    There are 3 security levels in the engine. 0 level functions allowed for all users. 1 level functions allowed for all registered users. And 2 level functions allowed only for users with admin rights.
+    To change the user access level you need to open your data base browser and in the users table change user type string from USR to ADM. Or you can manually call function "changeUserType" in the users package.
+</p>
+
+<p>
     Each folder in DataLayer presents some pack with different purposes. Note, that packs may use functions from another packs.
     The free packs with no dependencies is Templates and Misc.
     Other packs may use functions from Misc pack.
@@ -65,6 +70,9 @@
     </li>
     <li>
         <a href="/?users">Users</a>
+    </li>
+    <li>
+        <a href="/?gallery">Gallery</a>
     </li>
 </ul>
 

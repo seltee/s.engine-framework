@@ -13,11 +13,24 @@ class DataLayer extends \Engine\DataLayer {
                 $this->addFunction("addUser", "Users", '/DataLayer/Users/Requests/AddUser');
                 $this->addFunction("login", "Users", '/DataLayer/Users/Requests/Login');
                 $this->addFunction("quit", "Users", '/Requests/User');
+                $this->addSecuredFunction("changeUserType", "Users", '/DataLayer/Users/Requests/ChangeUserType', "ChangeUserType", 2);
+
+                $this->addFunction("getImageList", "Gallery", '/DataLayer/Gallery/Requests/GetImageList');
+                $this->addFunction("getImageCount", "Gallery", '/Requests/Dummy');
+                $this->addSecuredFunction("addImage", "Gallery", '/DataLayer/Gallery/Requests/AddImage', "addImage", 2);
+                $this->addSecuredFunction("removeImage", "Gallery", '/DataLayer/Gallery/Requests/ImageId', "addImage", 2);
+
+                break;
 
             default:
                 $this->addFunction("render", "Templates");
+
                 $this->addFunction("getConnectionInfo", "Misc");
+
                 $this->addFunction("getUsersList", "Users");
+
+                $this->addFunction("getImageList", "Gallery");
+                $this->addFunction("getImageCount", "Gallery");
         }
     }
 

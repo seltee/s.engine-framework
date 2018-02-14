@@ -2,7 +2,8 @@ var urlgate = '/datapoint.php';
 
 var noLoader = [];
 var inLoad = 0;
-var errorHeader = "Ошибка";
+var defaultErrorCallback = null;
+
 
 var datapoint = {
     call: function(funcName, data, onSuccess, onError){
@@ -40,7 +41,9 @@ var datapoint = {
                         if (onError) {
                             onError(response.message ? response.message : null);
                         } else {
-                            openModalInfo(errorHeader, response.message ? response.message.errorMessage : null)
+                            if (defaultErrorCallback){
+                                defaultErrorCallback(response.message ? response.message.errorMessage : null);
+                            }
                         }
                     }
                 }
@@ -60,9 +63,14 @@ var datapoint = {
                 if (onError) {
                     onError(response.message ? response.message : null);
                 }else{
-                    openModalInfo(errorHeader, response.message ? response.message.errorMessage : null)
+                    if (defaultErrorCallback){
+                        defaultErrorCallback(response.message ? response.message.errorMessage : null);
+                    }
                 }
             },
         });
+    },
+    setDefaultErrorCallback: function(callback){
+        defaultErrorCallback = callback;
     }
 };

@@ -37,4 +37,60 @@ footer{
     background-repeat: no-repeat;
     background-position: center;
     display: none;
+    z-index: 1000;
 }
+
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.8);
+    text-align: center;
+    display: none;
+}
+
+.modal:before{
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.modal > div{
+    display: inline-block;
+    vertical-align: center;
+    background-color: #fff;
+    width: 400px;
+    padding: 32px 32px;
+}
+
+.modal.error h1{
+    padding: 0;
+    color: #cc4444;
+}
+
+.modal.error{
+    font-size: 20px;
+    line-height: 22px;
+}
+
+.modal.error > div > div{
+    margin-top: 32px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+.image-list > div{
+    display: inline-block;
+    margin: 8px;
+    vertical-align: top;
+    cursor: pointer;
+    position: relative;
+}
+
+.image-list > div > div{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 4px 8px;
+    font-size: 15px;
+    color: #fff;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.image-list > div:hover > div{
+    display: block;
+}
+
+.image-list > div > div:hover{
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.image-show {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+}
