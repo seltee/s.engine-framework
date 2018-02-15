@@ -45,7 +45,7 @@ class SecurityLayer extends \Engine\SecurityLayer {
             //internal errors should not be displayed on the user server. Only for internal use on develop side.
             return new \Exceptions\DefaultException("Internal server error");
         }else{
-            return $e;
+            return new \Exceptions\DefaultException($e->getMessage());
         }
     }
 

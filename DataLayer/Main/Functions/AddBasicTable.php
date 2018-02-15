@@ -2,10 +2,11 @@
 namespace DataLayer\Main\Functions;
 
 class AddBasicTable{
-    public function __construct($getConnectionInfo, $addTableUsers, $addTableGallery){
+    public function __construct($getConnectionInfo, $addTableUsers, $addTableGallery, $addTableSlides){
         $this->setGetConnectionInfoFunction($getConnectionInfo);
         $this->setAddTableUsersFunction($addTableUsers);
         $this->setAddTableGalleryFunction($addTableGallery);
+        $this->setAddTableSlidesFunction($addTableSlides);
     }
 
     public function Run(\DataLayer\Main\Requests\AddBasicTable $request){
@@ -24,6 +25,10 @@ class AddBasicTable{
             case 'gallery':
                 $this->getAddTableGalleryFunction()->Run(new \Requests\Dummy());
                 return true;
+
+            case 'slides':
+                $this->getAddTableSlidesFunction()->Run(new \Requests\Dummy());
+                return true;
             default:
                 return false;
         }
@@ -32,6 +37,7 @@ class AddBasicTable{
     protected $getConnectionInfoFunction = null;
     protected $addTableUsersFunction = null;
     protected $addTableGalleryFunction = null;
+    protected $addTableSlidesFunction = null;
 
     /**
      * @param null $getConnectionInfoFunction
@@ -79,5 +85,21 @@ class AddBasicTable{
     public function setAddTableGalleryFunction($addTableGalleryFunction)
     {
         $this->addTableGalleryFunction = $addTableGalleryFunction;
+    }
+
+    /**
+     * @return null
+     */
+    public function getAddTableSlidesFunction()
+    {
+        return $this->addTableSlidesFunction;
+    }
+
+    /**
+     * @param null $addTableSlidesFunction
+     */
+    public function setAddTableSlidesFunction($addTableSlidesFunction)
+    {
+        $this->addTableSlidesFunction = $addTableSlidesFunction;
     }
 }

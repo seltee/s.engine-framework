@@ -20,4 +20,9 @@ class AddImageRecord extends \Engine\MYSQLiDataSourceReq
             ':description' => $request->getDescription()
         );
     }
+
+    public function GetData($data)
+    {
+        return $this->GetConnection()->lastInsertId();
+    }
 }

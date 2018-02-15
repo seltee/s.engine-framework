@@ -3,14 +3,16 @@ $dataLayer = new \DataLayer\DataLayer();
 
 $gallery = null;
 $gallerySize = null;
-$pageCount = null;
-
+$pageCount = 1;
+$pageLimit = 10;
 $exception = null;
 
+$cPage = isset($page) ? $page : 1;
+
 try {
-    $gallery = $dataLayer->processRequest("getImageList", new \DataLayer\Gallery\Requests\GetImageList())['data'];
+    $gallery = $dataLayer->processRequest("getImageList", new \DataLayer\Gallery\Requests\GetImageList($cPage, $pageLimit))['data'];
     $gallerySize = $dataLayer->processRequest("getImageCount", new \Requests\Dummy())['data'];
-    $pageCount = $gallerySize/10+1;
+    $pageCount = intval(floor ( $gallerySize/$pageLimit))+1;
 }catch(\Exception $e){
     $exception = $e->getMessage();
 }
@@ -30,6 +32,17 @@ try {
                 echo '</div>';
             }
         ?>
+        </div>
+        <div class="pages">
+            <?php
+            for ($i = 1; $i <= $pageCount; $i++){
+                if ($i == $cPage){
+                    echo '<a class="current">'.$i.'</a>';
+                }else{
+                    echo '<a href="/?gallery&page='.$i.'">'.$i.'</a>';
+                }
+            }
+            ?>
         </div>
     <?else:?>
         <p>

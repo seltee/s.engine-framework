@@ -26,6 +26,11 @@ class Package extends \Engine\Package {
         return new Functions\GetImageById($getImageById, $getImageLinks);
     }
 
+    public function getImageLinks(){
+        return new Functions\GetImageLinks();
+    }
+
+
     public function removeImage(){
         $getImageById = $this->getImageById();
         $removeImage = new DataSource\MySQL\RemoveImage();

@@ -1,9 +1,9 @@
 <?php
-namespace DataLayer\Gallery\Requests;
+namespace DataLayer\Slider\Requests;
 
-class GetImageList extends \Requests\Dummy {
-    protected $page = 1;
-    protected $limit = 10;
+class GetSlides extends \Requests\Dummy {
+    protected $page = 0;
+    protected $limit = 0;
 
     function __construct($page = 1, $limit = 10)
     {
@@ -24,7 +24,7 @@ class GetImageList extends \Requests\Dummy {
      */
     public function setPage($page)
     {
-        $this->page = $page;
+        $this->page = intval($page);
     }
 
     /**
@@ -40,6 +40,6 @@ class GetImageList extends \Requests\Dummy {
      */
     public function setLimit($limit)
     {
-        $this->limit = $limit;
+        $this->limit = intval($limit);
     }
 }

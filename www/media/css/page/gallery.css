@@ -36,3 +36,14 @@
     background-color: rgba(0, 0, 0, 0.8);
     display: none;
 }
+
+.pages a{
+    font-size: 24px;
+    margin-right: 8px;
+    color: #000;
+}
+
+.pages a.current, .pages a.current:hover{
+    color: #cc4444;
+    cursor: default;
+}

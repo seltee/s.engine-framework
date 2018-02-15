@@ -11,38 +11,40 @@ abstract class MYSQLiDataSource extends \Engine\DataSource
 
         $string = $this->GetRequestString();
         $dataArray = $this->GetDataArray($request);
-        if ($dataArray) {
-            foreach ($dataArray as $key => $value){
-                if (is_array($value)){
-                    $elements = implode ( " , ", $request->getColumns() );
-                    $string = str_replace($key, mysqli_real_escape_string($connection, $elements), $string);
-                }else {
-                    $string = str_replace($key, "'" . mysqli_real_escape_string($connection, $value) . "'", $string);
-                }
-            }
+
+        try {
+            $result = $connection->prepare($string);
+            $result->execute($dataArray);
+        }catch (\PDOException $e){
+            throw new \Exceptions\DefaultException($e->getMessage());
         }
 
-        $result = $connection->query($string);
-
-        if ($result) {
-            $out = array();
-            while ($row = $result->fetch_assoc()) {
-                $out[] = $row;
-            }
-            return $out;
-        }else{
-            throw new \Exceptions\DefaultException($connection->error);
+        $out = array();
+        while ($row = $result->fetch()) {
+            $out[] = $row;
         }
+
+        return $out;
     }
 
     protected function GetConnection(){
         if (!self::$connection){
-            $link = mysqli_connect(SQL_SERVER, SQL_USER, SQL_PASSWORD, SQL_DB);
-            if (!$link) {
-                throw new \Exceptions\DefaultException(mysqli_connect_error());
+
+            $dsn = "mysql:host=".SQL_SERVER.";dbname=".SQL_DB.";charset=".SQL_CHARSET;
+
+            $opt = [
+                \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+                \PDO::ATTR_EMULATE_PREPARES   => false,
+            ];
+
+            try {
+                $pdo = new \PDO($dsn, SQL_USER, SQL_PASSWORD, $opt);
+            } catch (\PDOException $e) {
+                throw new \Exceptions\DefaultException("Connection to DataBase failed. Check connection settings in init.php");
             }
-            $link->set_charset("utf8");
-            self::$connection = $link;
+
+            self::$connection = $pdo;
         }
 
         return self::$connection;

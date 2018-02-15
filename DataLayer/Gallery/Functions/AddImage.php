@@ -66,10 +66,11 @@ class AddImage{
         $reqAddImageRecord->setExtension($request->getImageType());
         $reqAddImageRecord->setDescription($request->getImageDescription());
 
-        $this->getAddImageRecordFunction()->Run($reqAddImageRecord);
+        $id = $this->getAddImageRecordFunction()->Run($reqAddImageRecord);
 
         return array(
-            "filename" => $name
+            "imageName" => $name,
+            "imageId" => $id
         );
     }
 

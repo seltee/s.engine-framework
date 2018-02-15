@@ -9,29 +9,23 @@ class GetImageList extends \Engine\MYSQLiDataSource
     }
 
     protected function GetRequestString(){
-        return "SELECT * FROM gallery ORDER BY ID DESC";
+        return "SELECT * FROM gallery ORDER BY ID DESC LIMIT :count OFFSET :offset";
     }
 
     protected function GetDataArray($request){
         return array(
-            ":count" => $request->getPerPage(),
-            ":offset" => ($request->getPage()-1)*$request->getPerPage()
+            ":count" => $request->getLimit(),
+            ":offset" => ($request->getPage()-1)*$request->getLimit()
         );
     }
 
     public function GetData($data){
-        $out = array();
-        if ($data){
-            foreach ($data as $key => $value){
-                $out[] = array(
-                    'Id' => $value['ID'],
-                    'File' => $value['FILE'],
-                    'Extension' => $value['EXTENSION'],
-                    'Name' => $value['NAME'],
-                    'Description' => $value['DESCRIPTION']
-                );
-            }
-        }
-        return $out;
+        return $this->Match($data, array(
+            'ID' => 'Id',
+            'FILE' => 'File',
+            'EXTENSION' => 'Extension',
+            'NAME' => 'Name',
+            'DESCRIPTION' => 'Description'
+        ));
     }
 }

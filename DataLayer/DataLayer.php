@@ -7,6 +7,11 @@ class DataLayer extends \Engine\DataLayer {
         $this->setIsDatapoint($type == 'datapoint');
 
         switch($type){
+            default:
+                $this->addFunction("render", "Templates");
+                $this->addFunction("getConnectionInfo", "Misc");
+                $this->addFunction("getUsersList", "Users");
+
             case 'datapoint':
                 $this->addFunction("addBasicTable", "Main", '/DataLayer/Main/Requests/AddBasicTable');
 
@@ -20,17 +25,12 @@ class DataLayer extends \Engine\DataLayer {
                 $this->addSecuredFunction("addImage", "Gallery", '/DataLayer/Gallery/Requests/AddImage', "addImage", 2);
                 $this->addSecuredFunction("removeImage", "Gallery", '/DataLayer/Gallery/Requests/ImageId', "addImage", 2);
 
+                $this->addFunction("getSlides", "Slider", '/DataLayer/Slider/Requests/GetSlides');
+                $this->addFunction("getSlidesByTag", "Slider", '/DataLayer/Slider/Requests/GetSlidesByTag');
+                $this->addSecuredFunction("addSlide", "Slider", '/DataLayer/Slider/Requests/AddSlide', "addSlide", 2);
+                $this->addSecuredFunction("removeSlide", "Slider", '/DataLayer/Slider/Requests/SlideId', "removeSlide", 2);
+
                 break;
-
-            default:
-                $this->addFunction("render", "Templates");
-
-                $this->addFunction("getConnectionInfo", "Misc");
-
-                $this->addFunction("getUsersList", "Users");
-
-                $this->addFunction("getImageList", "Gallery");
-                $this->addFunction("getImageCount", "Gallery");
         }
     }
 
@@ -40,11 +40,6 @@ class DataLayer extends \Engine\DataLayer {
 
     public function processException(\Exception $e){
         $e = $this->getSecurityLayer()->checkException($e);
-
-        if ($e instanceof \Exceptions\InternalException){
-            $message = array('errorMessage' => $e->getMessage());
-            $this->answer($message, $e->getCode());
-        }
 
         if ($e instanceof \Exceptions\DefaultException){
             if ($this->getIsDatapoint()) {

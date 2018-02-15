@@ -62,17 +62,23 @@
     If you name there some file, for example, example.css, then, when you access /?example styles for example page will automatically loaded in the base.php.
 </p>
 
-<h2>Check the following pages to learn more (and check their sources in the templates):</h2>
+<h2>Check the following pages to learn more (and check page sources in the templates):</h2>
 
 <ul>
     <li>
-        <a href="/?connection">DB connection</a>
+        <a href="/?connection">DB connection and tables</a>
     </li>
+
     <li>
-        <a href="/?users">Users</a>
+        <a href="/?users">Users package</a>
     </li>
+
     <li>
-        <a href="/?gallery">Gallery</a>
+        <a href="/?gallery">Gallery package</a>
+    </li>
+
+    <li>
+        <a href="/?slider">Slider package</a>
     </li>
 </ul>
 

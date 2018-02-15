@@ -40,6 +40,7 @@ if (DEV_SERVER){
     define("SQL_USER", "root");
     define("SQL_PASSWORD", "");
     define("SQL_DB", "sengine");
+    define("SQL_CHARSET", "utf8");
 }else{
 
 }
