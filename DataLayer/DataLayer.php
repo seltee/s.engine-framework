@@ -6,6 +6,13 @@ class DataLayer extends \Engine\DataLayer {
     function __construct($type = null){
         $this->setIsDatapoint($type == 'datapoint');
 
+        $this->loadPackage("Templates");
+        $this->loadPackage("Users");
+        $this->loadPackage("Main");
+        $this->loadPackage("Gallery");
+        $this->loadPackage("Slider");
+
+        /*
         switch($type){
             default:
                 $this->addFunction("render", "Templates");
@@ -32,6 +39,7 @@ class DataLayer extends \Engine\DataLayer {
 
                 break;
         }
+        */
     }
 
     protected function getSecurityLayer(){

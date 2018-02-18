@@ -1,5 +1,6 @@
 <?php
 $dataLayer = new \DataLayer\DataLayer();
+
 $result = $dataLayer->processRequest("getConnectionInfo", new \Requests\Dummy())['data'];
 
 $dbTables = $result['DBTables'];

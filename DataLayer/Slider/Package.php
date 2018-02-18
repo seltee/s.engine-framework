@@ -36,6 +36,16 @@ class Package extends \Engine\Package {
     public function getSlidesCount(){
         return new DataSource\MySQL\GetSlidesCount();
     }
+
+    public function getFunctions()
+    {
+        return array(
+            $this->f("getSlides", '/DataLayer/Slider/Requests/GetSlides', 'Get overall slides'),
+            $this->f("getSlidesByTag", '/DataLayer/Slider/Requests/GetSlidesByTag', 'Get slides tagged with tag. Use tags to get slides for certain slider'),
+            $this->f("addSlide", '/DataLayer/Slider/Requests/AddSlide', 'Add\'s slide. Admin user use only', 2),
+            $this->f("removeSlide", '/DataLayer/Slider/Requests/SlideId', "Removes slide. Admin user use only", 2)
+        );
+    }
 }
 
 

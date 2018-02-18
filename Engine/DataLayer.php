@@ -5,13 +5,35 @@ abstract class DataLayer{
     abstract protected function getSecurityLayer();
     abstract public function processException(\Exception $e);
 
-    protected function addFunction($name, $package, $request = null, $funcName = null, $securityLevel = 0){
+    public function loadPackage($packageName){
+        $packagePath = '\\DataLayer\\'.$packageName.'\\Package';
+        $package = new $packagePath;
+
+        if (!property_exists($this, 'packages')){
+            $this->packages = array();
+        }
+
+        if (array_key_exists($packageName, $this->packages)){
+            throw new \Exceptions\InternalException("Package ".$packageName." already exist");
+        }
+
+        $this->packages[$packageName] = $package;
+
+        $functions = $package->getFunctions();
+        if ($functions) {
+            foreach ($functions as $key => $value) {
+                $this->addFunction($value['Name'], $package, $packageName, $value['Request'], $value['Name'], $value['Description'], $value['SecurityLevel']);
+            }
+        }
+    }
+
+    protected function addFunction($name, $package, $packageName, $request = null, $funcName = null, $description = "", $securityLevel = 0){
         if (!property_exists($this, 'functions')){
             $this->functions = array();
         }
 
         if (array_key_exists ( $name , $this->functions )){
-            $this->processException(new \Exceptions\InternalException("Функция ".$name." уже существует, невозможно добавить в конструкторе"));
+            $this->processException(new \Exceptions\InternalException("Function \"".$name."\" already exist in package \"".$this->functions[$name]["packageName"]."\" (duplicate in package \"".$packageName."\")"));
         }
 
         $request = str_replace('/', '\\', $request);
@@ -19,15 +41,13 @@ abstract class DataLayer{
         $this->functions[$name] = array(
             "funcName" => $funcName ? $funcName : $name,
             "request" => $request ? $request : null,
-            "package" => 'DataLayer\\'.$package,
-            "secured" => $securityLevel
+            "package" => $package,
+            "packageName" => $packageName,
+            "secured" => $securityLevel,
+            "description" => $description
         );
 
         return true;
-    }
-
-    protected function addSecuredFunction($name, $package, $request = null, $funcName = null, $securityLevel = 1){
-        return $this->addFunction($name, $package, $request, $funcName, $securityLevel);
     }
 
     //Сначала парсит массив в реквест, затем вызывает процессРеквест
@@ -56,8 +76,7 @@ abstract class DataLayer{
             $this->processException(new \Exceptions\InternalException("Security layer not passed"));
         }
 
-        $packageName = $this->functions[$functionName]['package'].'\\Package';
-        $package = new $packageName;
+        $package = $this->functions[$functionName]['package'];
 
         if (!method_exists($package, $functionName)){
             $this->processException(new \Exceptions\InternalException("No such function ".$functionName));

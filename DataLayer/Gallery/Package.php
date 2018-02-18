@@ -37,6 +37,16 @@ class Package extends \Engine\Package {
 
         return new Functions\RemoveImage($getImageById, $removeImage);
     }
+
+    public function getFunctions()
+    {
+        return array(
+            $this->f("getImageList", '/DataLayer/Gallery/Requests/GetImageList', 'Get page of image list'),
+            $this->f("getImageCount", '/Requests/Dummy', 'Get total image count'),
+            $this->f("addImage", '/DataLayer/Gallery/Requests/AddImage', 'Add new image. Only for admin users', 2),
+            $this->f("removeImage", '/DataLayer/Gallery/Requests/ImageId', "Remove an image", 2)
+        );
+    }
 }
 
 

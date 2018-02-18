@@ -10,6 +10,8 @@
     This engine needs from you to know basics of php coding, it's totally none code free and needs to write a lot. But it's easy thing to do, because of the engine structure.
 </p>
 
+<?=(DEV_SERVER ? '<p class="green">You\'re on the develop server</p>' : '<p class="red">DEV_SERVER constant not found. Please, add DEV_SERVER constant to your server for turning on the develop mode</p>')?>
+
 <h2>Basic information:</h2>
 
 <p>

@@ -12,6 +12,25 @@ class Package extends \Engine\Package {
 
         return new Functions\AddBasicTable($getConnectionInfo, $addTableUsers, $addTableGallery, $addTableSlides);
     }
+
+    public function getConnectionInfo(){
+        $packageMisc = $this->getPackageByName("Misc");
+        return $packageMisc->getConnectionInfo();
+    }
+
+    public function getFunctions()
+    {
+        $functionList = array();
+
+        if (DEV_SERVER) {
+            $functionList = array_merge($functionList, array(
+                $this->f("addBasicTable", '/DataLayer/Main/Requests/AddBasicTable', 'Adds system tables. It is allowed for all users by default.'),
+                $this->f("getConnectionInfo", '/Requests/Dummy', "Get information about tables in data base")
+            ));
+        }
+
+        return $functionList;
+    }
 }
 
 

@@ -17,6 +17,12 @@ class Package extends \Engine\Package {
 
         return new Functions\Render($getTemplate, $getTitle);
     }
+
+    public function getFunctions(){
+        return array(
+            $this->f("render", "/DataLayer/Templates/Requests/Render", "Gives arguments to template and returns result")
+        );
+    }
 }
 
 

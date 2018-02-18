@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set("error_log", __DIR__."/logs/error-log.log");
 
-if ($_SERVER['DEV_SERVER'] == 'enabled'){
+if (array_key_exists('DEV_SERVER', $_SERVER)){
     define('DEV_SERVER', true);
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
