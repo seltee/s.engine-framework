@@ -2,7 +2,7 @@
 <html lang="ru">
     <head>
         <title><?=$title?></title>
-        <meta description content="Simple Engine">
+        <meta description content="Simple Engine Framework">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=1230, maximum-scale=1, user-scalable=yes">
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
@@ -29,6 +29,7 @@
         <div class="main-loader"></div>
         <header>
             Simple Engine
+            <h1>framework</h1>
         </header>
 
         <main>

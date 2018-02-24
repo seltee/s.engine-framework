@@ -2,11 +2,12 @@
 namespace DataLayer\Main\Functions;
 
 class AddBasicTable{
-    public function __construct($getConnectionInfo, $addTableUsers, $addTableGallery, $addTableSlides){
+    public function __construct($getConnectionInfo, $addTableUsers, $addTableGallery, $addTableSlides, $addTableNews){
         $this->setGetConnectionInfoFunction($getConnectionInfo);
         $this->setAddTableUsersFunction($addTableUsers);
         $this->setAddTableGalleryFunction($addTableGallery);
         $this->setAddTableSlidesFunction($addTableSlides);
+        $this->setAddTableNewsFunction($addTableNews);
     }
 
     public function Run(\DataLayer\Main\Requests\AddBasicTable $request){
@@ -29,6 +30,10 @@ class AddBasicTable{
             case 'slides':
                 $this->getAddTableSlidesFunction()->Run(new \Requests\Dummy());
                 return true;
+
+            case 'news':
+                $this->getAddTableNewsFunction()->Run(new \Requests\Dummy());
+                return true;
             default:
                 return false;
         }
@@ -38,6 +43,7 @@ class AddBasicTable{
     protected $addTableUsersFunction = null;
     protected $addTableGalleryFunction = null;
     protected $addTableSlidesFunction = null;
+    protected $addTableNewsFunction = null;
 
     /**
      * @param null $getConnectionInfoFunction
@@ -101,5 +107,21 @@ class AddBasicTable{
     public function setAddTableSlidesFunction($addTableSlidesFunction)
     {
         $this->addTableSlidesFunction = $addTableSlidesFunction;
+    }
+
+    /**
+     * @return null
+     */
+    public function getAddTableNewsFunction()
+    {
+        return $this->addTableNewsFunction;
+    }
+
+    /**
+     * @param null $addTableNewsFunction
+     */
+    public function setAddTableNewsFunction($addTableNewsFunction)
+    {
+        $this->addTableNewsFunction = $addTableNewsFunction;
     }
 }

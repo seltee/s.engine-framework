@@ -21,9 +21,13 @@ abstract class DataSource{
         return $out;
     }
 
-    public function GetFirst($data){
+    public function GetFirst($data, $matchArray = null){
         if (is_array($data) && array_key_exists(0, $data)){
-            return $data[0];
+            if ($matchArray){
+                return $this->Match($data, $matchArray)[0];
+            }else{
+                return $data[0];
+            }
         }else{
             return null;
         }

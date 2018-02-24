@@ -4,6 +4,7 @@ namespace DataLayer\Users\Requests;
 class AddUser extends \Requests\Dummy {
     protected $login = "";
     protected $password = "";
+    protected $userType = "USR";
 
     /**
      * @param string $login
@@ -35,5 +36,21 @@ class AddUser extends \Requests\Dummy {
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * @param string $userType
+     */
+    public function setUserType($userType)
+    {
+        $this->userType = $userType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserType()
+    {
+        return $this->userType;
     }
 }

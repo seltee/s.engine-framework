@@ -20,7 +20,7 @@ class Package extends \Engine\Package {
 
     public function getFunctions(){
         return array(
-            $this->f("render", "/DataLayer/Templates/Requests/Render", "Gives arguments to template and returns result")
+            $this->f("render", "/DataLayer/Templates/Requests/Render", "Gives arguments to the defined template and returns result")
         );
     }
 }

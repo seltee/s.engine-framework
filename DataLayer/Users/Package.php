@@ -6,8 +6,15 @@ class Package extends \Engine\Package {
         return new DataSource\MySQL\GetUsersList();
     }
 
+    public function getUsersCount(){
+        return new DataSource\MySQL\GetUsersCount();
+    }
+
     public function addUser(){
-        return new DataSource\MySQL\AddUser();
+        $addUser = new DataSource\MySQL\AddUser();
+        $getUsersCount = $this->getUsersCount();
+
+        return new Functions\AddUser($addUser, $getUsersCount);
     }
 
     public function login(){

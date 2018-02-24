@@ -1,0 +1,41 @@
+ul{
+    margin-left: 20px;
+}
+
+ul li{
+    margin-bottom: 12px;
+}
+
+ul li ul li{
+    margin-bottom: 2px;
+}
+
+ul .header{
+    display: block;
+    width: 400px;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 18px;
+    letter-spacing: 0.4px;
+}
+
+ul .description{
+    display: block;
+    width: 400px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+ul .method{
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+ul .type{
+    font-size: 14px;
+    font-style: italic;
+}
+
+h2{
+    text-decoration: underline;
+}

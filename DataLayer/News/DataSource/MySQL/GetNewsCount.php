@@ -1,7 +1,7 @@
 <?php
-namespace DataLayer\Gallery\DataSource\MySQL;
+namespace DataLayer\News\DataSource\MySQL;
 
-class GetImageCount extends \Engine\MYSQLiDataSource
+class GetNewsCount extends \Engine\MYSQLiDataSource
 {
     protected function CheckRequest($request)
     {
@@ -9,7 +9,7 @@ class GetImageCount extends \Engine\MYSQLiDataSource
     }
 
     protected function GetRequestString(){
-        return "SELECT COUNT(*) FROM gallery";
+        return "SELECT COUNT(*) FROM news";
     }
 
     protected function GetDataArray($request){
@@ -18,6 +18,6 @@ class GetImageCount extends \Engine\MYSQLiDataSource
 
     public function GetData($data)
     {
-        return intval($data[0]['COUNT(*)']);
+        return $data[0]['COUNT(*)'];
     }
 }

@@ -35,6 +35,8 @@ define("BIG_IMAGE", 1200);
 define("MEDIUM_IMAGE", 800);
 define("PREVIEW_IMAGE", 240);
 
+define("SHORT_NEW_LENGTH", 200);
+
 if (DEV_SERVER){
     define("SQL_SERVER", "localhost");
     define("SQL_USER", "root");

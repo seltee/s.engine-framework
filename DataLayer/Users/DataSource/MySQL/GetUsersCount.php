@@ -1,7 +1,7 @@
 <?php
-namespace DataLayer\Slider\DataSource\MySQL;
+namespace DataLayer\Users\DataSource\MySQL;
 
-class GetSlidesCount extends \Engine\MYSQLiDataSource
+class GetUsersCount extends \Engine\MYSQLiDataSource
 {
     protected function CheckRequest($request)
     {
@@ -9,7 +9,7 @@ class GetSlidesCount extends \Engine\MYSQLiDataSource
     }
 
     protected function GetRequestString(){
-        return "SELECT COUNT(*) FROM slides";
+        return "SELECT COUNT(*) FROM users";
     }
 
     protected function GetDataArray($request){
@@ -17,6 +17,6 @@ class GetSlidesCount extends \Engine\MYSQLiDataSource
     }
 
     public function GetData($data){
-        return intval($data[0]['COUNT(*)']);
+        return $data[0]['COUNT(*)'];
     }
 }

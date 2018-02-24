@@ -1,0 +1,76 @@
+.news{
+    display: inline-block;
+}
+
+.news:hover{
+    background-color: #EEEEEE;
+}
+
+.news > img{
+    width: 160px;
+    display: inline-block;
+    margin: 8px;
+    vertical-align: top;
+}
+
+.news > div{
+    display: inline-block;
+    margin: 8px;
+    width: 290px;
+    vertical-align: top;
+    vertical-align: top;
+}
+
+.news > div > div:first-of-type{
+    font-size: 17px;
+    margin-bottom: 2px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+.news > div > div:last-of-type{
+    font-size: 14px;
+    color: #666;
+}
+
+.pages a{
+    font-size: 24px;
+    margin-right: 8px;
+    color: #000;
+}
+
+.pages a.current, .pages a.current:hover{
+    color: #cc4444;
+    cursor: default;
+}
+
+.article-title{
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.remove-article{
+    display: block;
+    width: 120px;
+    margin: 0px auto 16px auto;
+}
+
+.article{
+    margin-top: 32px;
+}
+
+img.news-image-full{
+    height: 320px;
+    display: block;
+    margin: auto;
+}
+
+.date{
+    margin-top: 32px;
+    font-style: italic;
+    font-size: 14px;
+    color: #aaa;
+}

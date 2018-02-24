@@ -1,8 +1,12 @@
 header{
-    padding: 80px;
+    padding: 60px 0 40px 0;
     text-align: center;
     font-size: 72px;
     text-transform: uppercase;
+}
+
+header h1{
+    padding-top: 0px;
 }
 
 main{
@@ -38,6 +42,13 @@ footer{
     background-position: center;
     display: none;
     z-index: 1000;
+}
+
+.description p{
+    font-style: italic;
+    font-size: 14px;
+    margin-bottom: 12px;
+    margin-bottom: 4px;
 }
 
 .modal{

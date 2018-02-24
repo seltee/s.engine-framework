@@ -1,0 +1,72 @@
+.parsed-data.not-loaded{
+    font-size: 17px;
+    color: #ccc;
+}
+
+.parsed-data ul li{
+    font-size: 17px;
+}
+
+.parsed-data ul li span{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.parsed-data ul li span:first-of-type{
+    color: #777;
+    min-width: 100px;
+    font-size: 14px;
+}
+
+.parsed-data ul li span:last-of-type{
+    color: #000;
+    margin-left: 8px;
+}
+
+.fields ul li span:last-of-type{
+    display: block;
+    font-size: 17px;
+    color: #777;
+}
+
+.fields ul li input{
+    padding: 2px 4px;
+    font-size: 15px;
+}
+
+table{
+    margin: 16px 0;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table tr td{
+    padding: 4px 12px 4px 4px;
+    font-size: 15px;
+    vertical-align: top;
+}
+
+table tr.headers td{
+    background-color: #EEE;
+}
+
+table tr td.count{
+    width: 20px;
+    min-width: inherit;
+    color: #777;
+}
+
+table tbody tr td{
+    font-size: 14px;
+}
+
+.add-csv-to-db{
+    display: none;
+}
+
+.add-csv-to-db .fields{
+    display: none;
+}
+
+
+

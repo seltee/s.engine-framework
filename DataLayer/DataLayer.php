@@ -7,10 +7,12 @@ class DataLayer extends \Engine\DataLayer {
         $this->setIsDatapoint($type == 'datapoint');
 
         $this->loadPackage("Templates");
-        $this->loadPackage("Users");
         $this->loadPackage("Main");
+        $this->loadPackage("Users");
         $this->loadPackage("Gallery");
+        $this->loadPackage("News");
         $this->loadPackage("Slider");
+        $this->loadPackage("CSV");
 
         /*
         switch($type){

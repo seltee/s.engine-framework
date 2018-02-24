@@ -53,7 +53,7 @@ abstract class DataLayer{
     //Сначала парсит массив в реквест, затем вызывает процессРеквест
     public function processFunction($functionName, $infoArray){
         if (!$this->functions || !array_key_exists($functionName, $this->functions)){
-            $this->processException(new \Exceptions\InternalException("Функция ".$functionName." не существует"));
+            $this->processException(new \Exceptions\InternalException("Function ".$functionName." does not exist"));
         }
 
         $requestName = $this->functions[$functionName]['request'];
@@ -97,5 +97,65 @@ abstract class DataLayer{
         );
 
         return $retArray;
+    }
+
+    public function getApiReference(){
+        $reference = array();
+        if ($this->packages){
+            foreach ($this->packages as $key => $value) {
+                $newReference = array(
+                    'Name' => $key,
+                    'Functions' => array()
+                );
+
+                $functions = $value->getFunctions();
+                if ($functions) {
+                    foreach ($functions as $key => $value) {
+                        $requestPath = str_replace('/', '\\', $value['Request']);
+
+                        $request = new $requestPath;
+                        $methods = get_class_methods ($request);
+                        $argumentsList = array();
+
+                        foreach($methods as $method){
+                            $isGet = (strtolower(substr($method, 0, 3)) == 'get');
+                            if ($isGet){
+                                $defValue = $request->$method();
+                                $type = 'Mixed';
+                                if (is_array($defValue)){
+                                    $type = 'Array';
+                                }
+
+                                if (is_string($defValue)){
+                                    $type = 'String';
+                                }
+
+                                if (is_numeric($defValue)){
+                                    $type = 'Numeric';
+                                }
+
+                                $argumentsList[] = array(
+                                    'Name' => substr($method, 3),
+                                    'Type' => $type
+                                );
+                            }
+                        }
+
+
+                        $newReference['Functions'][] = array(
+                            'Name' => $value['Name'],
+                            'Description' => $value['Description'],
+                            'SecurityLevel' => $value['SecurityLevel'],
+                            'Arguments' => $argumentsList
+                        );
+                    }
+                }
+
+                $reference[] = $newReference;
+            }
+
+            return $reference;
+        }
+        return array();
     }
 }

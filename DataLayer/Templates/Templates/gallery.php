@@ -1,16 +1,15 @@
 <?php
 $dataLayer = new \DataLayer\DataLayer();
 
-$gallery = null;
+$images = null;
 $gallerySize = null;
 $pageCount = 1;
 $pageLimit = 10;
 $exception = null;
-
-$cPage = isset($page) ? $page : 1;
+$cPage = $gallery ? intval($gallery) : 1;
 
 try {
-    $gallery = $dataLayer->processRequest("getImageList", new \DataLayer\Gallery\Requests\GetImageList($cPage, $pageLimit))['data'];
+    $images = $dataLayer->processRequest("getImageList", new \DataLayer\Gallery\Requests\GetImageList($cPage, $pageLimit))['data'];
     $gallerySize = $dataLayer->processRequest("getImageCount", new \Requests\Dummy())['data'];
     $pageCount = intval(floor ( $gallerySize/$pageLimit))+1;
 }catch(\Exception $e){
@@ -22,10 +21,10 @@ try {
 <?php if (!$exception): ?>
     <h2>Image list</h2>
 
-    <?php if (count($gallery)): ?>
+    <?php if (count($images)): ?>
         <div class="image-list">
         <?php
-            foreach ($gallery as $key => $value){
+            foreach ($images as $key => $value){
                 echo '<div>';
                 echo '<img src="'.$value['PreviewImageLink'].'" full="'.$value['BigImageLink'].'" />';
                 echo '<div remove="'.$value['Id'].'">X</div>';
@@ -39,7 +38,7 @@ try {
                 if ($i == $cPage){
                     echo '<a class="current">'.$i.'</a>';
                 }else{
-                    echo '<a href="/?gallery&page='.$i.'">'.$i.'</a>';
+                    echo '<a href="/?gallery='.$i.'">'.$i.'</a>';
                 }
             }
             ?>

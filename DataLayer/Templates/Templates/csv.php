@@ -1,147 +1,149 @@
-<?php
-$dataLayer = new \DataLayer\DataLayer();
+<h2>CSV Loader</h2>
+<input class="csv-file" type="file" accept=".csv*" /><br>
+<button class="csv-check">Check File</button>
 
-$gallery = null;
-$gallerySize = null;
-$pageCount = null;
+<div class="add-csv-to-db">
+    <h2>Add csv data to Data Base</h2>
+    <button class="show-fields">Show Fields</button>
+    <div class="fields"></div>
+</div>
 
-$exception = null;
+<h2>CSV Data</h2>
 
-try {
-    //get first 5 slides without tag
-    //$slides = $dataLayer->processRequest("getSlides", new \DataLayer\Slider\Requests\GetSlides(1, 5))['data'];
-
-    $slides = $dataLayer->processRequest("getSlidesByTag", new \DataLayer\Slider\Requests\GetSlidesByTag("main"))['data'];
-}catch(\Exception $e){
-    $exception = $e->getMessage();
-}
-
-?>
-
-<?php if (!$exception): ?>
-    <h2>Slider</h2>
-
-    <?php if (count($slides)): ?>
-        <div class="slider">
-            <div class="arrow-left go-left">&#8592;</div>
-            <div class="arrow-right go-right">&#8594;</div>
-            <div class="slides-body">
-            <?php
-                foreach ($slides as $key => $value){
-                    echo '<a style="background-image: url(\''.$value['BigImageLink'].'\')">';
-                    echo '<div class="header">'.$value['Header'].'</div>';
-                    echo '<div class="body">'.$value['Body'].'</div>';
-                    echo '<div class="remove"><button class="remove-slide" slide="'.$value["Id"].'">Remove slide</button></div>';
-                    echo '</a>';
-                }
-            ?>
-            </div>
-        </div>
-    <?else:?>
-        <p>
-            No slides for slider
-        </p>
-    <?endif?>
-
-    <h2>Add new slide</h2>
-    <p class="add-slide">
-        <input class="user-slide" type="file" /><br>
-        <button class="add-slide">Add slide</button>
-    </p>
-<?else:?>
-    <p>
-        <a href="/?connection">Error. Please, check connection to the database, slides and gallery table.</a>
-    </p>
-    <p>
-        Exception: <?=$exception?>
-    </p>
-<?endif?>
-
-<div class="image-show"></div>
+<div class="parsed-data not-loaded">
+    Please, load some file
+</div>
 
 <script>
     $(document).ready(function(){
-        var container = $(".slider");
-        var slides = container.find(".slides-body a");
-        var count = slides.length;
-        var current = 0;
-        var block = false;
+        var fileData = null;
 
-        container.find('.remove-slide').click(function (a) {
-            var id = $(a.target).attr("slide");
-            datapoint.call("removeSlide", {Id: id}, function(){
-                location.reload();
-            });
+        function uploadToDatabase(tableName, data){
 
-            a.stopPropagation();
-        });
-
-        container.mouseenter(function(){
-            block = true;
-        });
-
-        container.mouseleave(function(){
-            block = false;
-        });
-
-        function go(cnt){
-            $(slides[current]).stop();
-            $(slides[current]).fadeOut(1500);
-            current+=cnt;
-            if (current >= count) {
-                current = 0;
+            if (fileData && data){
+                datapoint.call("loadCSVToDataBase", {
+                    fileData: fileData,
+                    tableName: tableName,
+                    columns: data
+                }, function(data){
+                    console.log(data);
+                });
             }
-            if (current < 0) {
-                current = count - 1;
-            }
-            $(slides[current]).fadeIn(1500);
         }
 
-        container.find(".go-left").click(function(){
-            go(-1);
-        });
+        function updateFields(data){
+            var out = '<ul>';
 
-        container.find(".go-right").click(function(){
-            go(1);
-        });
+            out += '<li><span>Table Name*</span><input key="table-name"/></li>';
 
-        $(slides[0]).show();
-        setInterval(function(){
-            if (!block) {
-                go(1);
-            }
-        }, 3000);
+            $.each(data.Headers, function(i, o){
+                out += '<li><span>'+o+'</span><input key="'+i+'"/></li>';
+            });
+
+            out += '</ul>';
+            out += '<button>Upload to Data Base</button>';
+
+            $('.add-csv-to-db .fields').html(out);
+            $('.add-csv-to-db .fields button').unbind("click").click(function(){
+                var out = {};
+                var tableName = null;
+                $.each($('.add-csv-to-db .fields input'), function(i, o){
+                    if ($(o).val() && $(o).val().length > 0) {
+                        if ($(o).attr("key") == "table-name"){
+                            tableName = $(o).val();
+                        }else {
+                            out[$(o).attr("key")] = $(o).val();
+                        }
+                    }
+                });
+                uploadToDatabase(tableName, out);
+            });
+        };
+
+        function showResult(data){
+            var out = '<ul>';
+            out += '<li><span>Columns count:</span><span>' + data.ColumnsCount + '</span></li>';
+            out += '<li><span>Rows count:</span><span>' + data.RowsCount + '</span></li>';
+            out += '<li><span>Errors:</span><span>' + (data.Errors ? data.Errors.join(', ') : "no errors") + '</span></li>';
+            out += '</ul>';
+
+            out += '<h2>Variants table</h2>';
+
+            out += '<table><thead><tr class="headers">';
+
+            $.each(data.Headers, function(i, o){
+                out += '<td>' + o + '</td>'
+            });
+
+            out += '</tr></thead>';
+
+            out += '<tbody><tr>';
+
+            $.each(data.Variants, function(i, o){
+                out += '<td>' + o + '</td>';
+            });
+
+            out += '</tr></tbody></table>';
+
+            out += '<h2>Preview data table ('+data.PreviewCount+')</h2>';
+
+            out += '<table><thead><tr class="headers">';
+
+            out += '<td class="count">№</td>';
+
+            $.each(data.Headers, function(i, o){
+                out += '<td>' + o + '</td>'
+            });
+
+            out += '</tr></thead>';
+
+            out += '<tbody>';
+
+            $.each(data.Rows, function(i, o){
+                out += '<tr><td class="count">' + (i + 1) + '</td>';
+
+                $.each(o, function(i, o){
+                    out += '<td>' + o + '</td>';
+                });
+
+                out += '</tr>';
+            });
+
+            out += '</tbody>';
+
+            out += '</table>';
+
+            $('.parsed-data').html(out);
+            $('.parsed-data').removeClass("not-loaded");
+        };
 
 
-        $(".add-slide button.add-slide").click(function(e){
-            var file = $('.add-slide .user-slide')[0].files[0];
-            var fileName = file.name;
-            var fileExtension = file.type.split('/')[1];
-
+        $("button.csv-check").click(function(e){
+            var file = $('.csv-file')[0].files[0];
             var reader = new FileReader();
 
             reader.onload = function(){
-                var fileData = reader.result;
-
-                datapoint.call("addImage", {
-                    imageData: btoa(fileData),
-                    imageName: fileName,
-                    imageType: fileExtension
+                fileData = reader.result;
+                console.log(fileData);
+                datapoint.call("checkCSV", {
+                    fileData: fileData
                 }, function(data){
-                    datapoint.call("addSlide", {
-                        imageId: data.imageId,
-                        tag: "main",
-                        header: "This Is Your Slide",
-                        body: fileName,
-                        link: "https://www.google.ru"
-                    }, function(data){
-                        location.reload();
-                    });
+                    $(".add-csv-to-db").show();
+                    updateFields(data);
+                    showResult(data);
                 });
             };
 
-            reader.readAsBinaryString(file);
+            reader.readAsText(file);
         });
 
+        $(".add-csv-to-db .show-fields").click(function(){
+            $(".add-csv-to-db .fields").fadeIn(500);
+            $(".add-csv-to-db .show-fields").hide();
+        });
+
+        $("button.csv-load").click(function(e){
+
+        });
     });
 </script>

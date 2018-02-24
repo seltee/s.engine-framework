@@ -17,17 +17,18 @@ class AddUser extends \Engine\MYSQLiDataSourceReq
     }
 
     protected function GetRequestString(){
-        return "INSERT INTO users (LOGIN, PASSWORD) VALUES (:login, :password)";
+        return "INSERT INTO users (LOGIN, PASSWORD, TYPE) VALUES (:login, :password, :type)";
     }
 
     protected function GetDataArray($request){
         return array(
             ":login" => $request->GetLogin(),
-            ":password" => crypt($request->GetPassword(), PASS_SALT)
+            ":password" => crypt($request->GetPassword(), PASS_SALT),
+            ":type" => $request->GetUserType()
         );
     }
 
     public function GetData($data){
-        return mysqli_insert_id($this->GetConnection());
+        return $this->GetConnection()->lastInsertId();
     }
 }

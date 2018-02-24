@@ -50,6 +50,12 @@ $dbTables = $result['DBTables'];
         }else{
             echo '<li>Slides table does not exists <a table="slides" class="add-table">Create</a></li>';
         }
+
+        if (in_array('news', $dbTables)){
+            echo '<li class="green">News table exists</li>';
+        }else{
+            echo '<li>News table does not exists <a table="news" class="add-table">Create</a></li>';
+        }
         ?>
     </ul>
 <?php endif ?>
