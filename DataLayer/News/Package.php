@@ -47,8 +47,8 @@ class Package extends \Engine\Package {
         return array(
             $this->f("getNewsList", '/DataLayer/News/Requests/GetNewsList', 'Get news list page by limit'),
             $this->f("getNewsCount", '/Requests/Dummy', 'Get news overall count'),
-            $this->f("addNews", '/DataLayer/News/Requests/AddNews', 'Add news'),
-            $this->f("removeNews", '/DataLayer/News/Requests/NewsId', 'Removes the selected news by id'),
+            $this->f("addNews", '/DataLayer/News/Requests/AddNews', 'Add news', 2),
+            $this->f("removeNews", '/DataLayer/News/Requests/NewsId', 'Removes the selected news by id', 2),
             $this->f("getNews", '/DataLayer/News/Requests/NewsId', 'Get the full view of news'),
         );
     }
