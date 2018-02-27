@@ -51,9 +51,7 @@ export default class App extends React.Component {
                             In this case, read more about Redux and Flux.
                         </p>
                         <p>
-                            Also you should know some things about development server. It's sending POST requests to http://sengine/datapoint.php by default. You may change it in the app/datapoint.js file.
-                            It is cross domain request, so, datapoint.php will allow it only on development server. You need to turn this mode on to get the requests work.
-                            Add variable DEV_SERVER to your server or edit init.php
+                            Also you should check webpack config. There is string where requests to the backend and media will be redirected. It's http://sengine/ by default.
                         </p>
                     </div>
 

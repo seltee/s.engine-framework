@@ -1,4 +1,4 @@
-var urlgate = 'http://sengine/datapoint.php';
+var urlgate = '/datapoint.php';
 var noLoader = [];
 var inLoad = 0;
 var defaultErrorCallback = null;

@@ -3,6 +3,13 @@
 var path = require('path');
 var webpack = require('webpack');
 
+//change this to local domain where your apache or nginx running
+var backendServer = 'http://sengine';
+
+console.log("\n\n");
+console.log("Backend server: " + backendServer);
+console.log("\n\n");
+
 module.exports = {
     entry: [
         "./app/app.js"
@@ -25,7 +32,12 @@ module.exports = {
         inline: true,
         proxy: {
             '/media/**': {
-                target: 'http://sengine',
+                target: backendServer,
+                secure: false,
+                changeOrigin: true
+            },
+            '/datapoint.php': {
+                target: backendServer,
                 secure: false,
                 changeOrigin: true
             }
