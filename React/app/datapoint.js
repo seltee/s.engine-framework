@@ -1,11 +1,11 @@
-var urlgate = '/datapoint.php';
+var urlgate = 'http://sengine/datapoint.php';
 var noLoader = [];
 var inLoad = 0;
 var defaultErrorCallback = null;
 var loaderCallback = null;
 
-var datapoint = {
-    call: function(funcName, data, onSuccess, onError){
+export default class Datapoint {
+    static call(funcName, data, onSuccess, onError) {
         if (noLoader.indexOf(funcName) == -1) {
             inLoad++;
             if (loaderCallback && inLoad == 1){
@@ -66,11 +66,13 @@ var datapoint = {
         console.log('request '+funcName);
         console.log(data);
         xhr.send(json);
-    },
-    setDefaultErrorCallback: function(callback){
+    }
+
+    static setDefaultErrorCallback(callback) {
         defaultErrorCallback = callback;
-    },
-    setLoaderCallback: function(callback) {
+    }
+
+    static setLoaderCallback(callback) {
         loaderCallback = callback;
     }
 };

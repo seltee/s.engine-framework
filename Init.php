@@ -20,7 +20,7 @@ function __autoload($class){
 }
 
 function mediaExist($file){
-    $path = __DIR__.'/www'.$file;
+    $path = __DIR__ . '/www' .$file;
 
     if (file_exists($path)){
         return true;
@@ -33,7 +33,7 @@ define("SITE_NAME", "S.ENGINE");
 
 define("BIG_IMAGE", 1200);
 define("MEDIUM_IMAGE", 800);
-define("PREVIEW_IMAGE", 240);
+define("PREVIEW_IMAGE", 320);
 
 define("SHORT_NEW_LENGTH", 200);
 
@@ -48,7 +48,7 @@ if (DEV_SERVER){
 }
 
 define("PASS_SALT", "RAkyEnA&Zd9F3VQ@Tc%aMm&1NuKiW_um#DanW2mgg1LWZJHZ^fn%#8Yb95h#oR#%");
-define("GALLERY_DIR", str_replace('\\', '/', __DIR__.'/www/media/gallery'));
+define("GALLERY_DIR", str_replace('\\', '/', __DIR__ . '/www/media/gallery'));
 define("GALLERY_LINK", "/media/gallery");
 
 date_default_timezone_set('Europe/Moscow');

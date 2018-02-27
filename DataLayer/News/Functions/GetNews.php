@@ -10,7 +10,12 @@ class GetNews{
 
     public function Run(\DataLayer\News\Requests\NewsId $request){
         $news = $this->getGetNewsFunction()->Run($request);
-        return array_merge($news, $this->getGetImageLinksFunction()->Run(new \DataLayer\Gallery\Requests\GetImageLinks($news['Image'])));
+
+        if ($news) {
+            return array_merge($news, $this->getGetImageLinksFunction()->Run(new \DataLayer\Gallery\Requests\GetImageLinks($news['Image'])));
+        }else{
+            throw new \Exceptions\DefaultException("Can't find news with id ".$request->getId());
+        }
     }
 
 

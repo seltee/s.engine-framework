@@ -101,7 +101,7 @@ class AddImage{
     protected function saveImage($image, $path, $extension){
         switch($extension){
             case "jpeg":
-                imagejpeg($image, $path, 80);
+                imagejpeg($image, $path, 90);
                 return true;
             case "png":
                 imagepng($image, $path);

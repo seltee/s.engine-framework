@@ -65,6 +65,10 @@
     </li>
 
     <li>
+        <a href="/index-react.html">React version</a>
+    </li>
+
+    <li>
         <a href="/?users">Users package</a>
     </li>
 
@@ -83,11 +87,14 @@
     <li>
         <a href="/?csv">CSV package</a>
     </li>
+
+
 </ul>
 
 <script>
     $(document).ready(function(){
-
+        var c = "200";
+        console.log(+c);
     });
 </script>
 

@@ -61,6 +61,14 @@
                 $("#error > div > div").html(message);
                 $("#error").fadeIn(500);
             });
+
+            datapoint.setLoaderCallback(function(state){
+                if (state){
+                    $(".main-loader").stop().fadeIn(500);
+                } else{
+                    $(".main-loader").stop().fadeOut(500);
+                }
+            });
         });
     </script>
 </html>
