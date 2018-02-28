@@ -6,6 +6,9 @@ abstract class MYSQLiDataSource extends \Engine\DataSource
     abstract protected function GetRequestString();
     abstract protected function GetDataArray($request);
 
+    protected $result = null;
+    static $connection = null;
+
     protected function ObtainData($request){
         $connection = $this->GetConnection();
 
@@ -13,14 +16,14 @@ abstract class MYSQLiDataSource extends \Engine\DataSource
         $dataArray = $this->GetDataArray($request);
 
         try {
-            $result = $connection->prepare($string);
-            $result->execute($dataArray);
+            $this->result = $connection->prepare($string);
+            $this->result->execute($dataArray);
         }catch (\PDOException $e){
             throw new \Exceptions\DefaultException($e->getMessage());
         }
 
         $out = array();
-        while ($row = $result->fetch()) {
+        while ($row = $this->result->fetch()) {
             $out[] = $row;
         }
 
@@ -29,7 +32,6 @@ abstract class MYSQLiDataSource extends \Engine\DataSource
 
     protected function GetConnection(){
         if (!self::$connection){
-
             $dsn = "mysql:host=".SQL_SERVER.";dbname=".SQL_DB.";charset=".SQL_CHARSET;
 
             $opt = [
@@ -50,5 +52,19 @@ abstract class MYSQLiDataSource extends \Engine\DataSource
         return self::$connection;
     }
 
-    static $connection = null;
+    protected function GetRowCount(){
+        if ($this->result){
+            return $this->result->rowCount();
+        }else{
+            return null;
+        }
+    }
+
+    protected function GetLastInsertId(){
+        if ($this->result){
+            return $this->GetConnection()->lastInsertId();
+        }else{
+            return null;
+        }
+    }
 }

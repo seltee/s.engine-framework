@@ -2,7 +2,7 @@
 
 include_once '../Init.php';
 
-$dataLayer = new \DataLayer\DataLayer();
+$dataLayer = \DataLayer\DataLayer::getInstance();
 $request = new \DataLayer\Templates\Requests\Render();
 
 if (count($_GET)){
@@ -17,5 +17,19 @@ if (count($_GET)){
     $request->setTemplateName('main');
 }
 
-$result = $dataLayer->processRequest('render', $request);
+try {
+    $result = $dataLayer->processRequest('render', $request);
+}catch(\Exception $e){
+    if ($e instanceof \Exceptions\DefaultException){
+        $request = new \DataLayer\Templates\Requests\Render();
+        $request->setTemplateName('exception');
+        $request->setParameters(array(
+            'message' => $e->getMessage()
+        ));
+        $result = $this->processRequest('render', $request, false);
+    }else{
+        die("Internal error occurred");
+    }
+}
+
 echo $result['data'];

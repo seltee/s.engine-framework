@@ -3,9 +3,7 @@
 namespace DataLayer;
 
 class DataLayer extends \Engine\DataLayer {
-    function __construct($type = null){
-        $this->setIsDatapoint($type == 'datapoint');
-
+    protected function doLoads(){
         $this->loadPackage("Templates");
         $this->loadPackage("Main");
         $this->loadPackage("Users");
@@ -13,44 +11,14 @@ class DataLayer extends \Engine\DataLayer {
         $this->loadPackage("News");
         $this->loadPackage("Slider");
         $this->loadPackage("CSV");
-
-        /*
-        switch($type){
-            default:
-                $this->addFunction("render", "Templates");
-                $this->addFunction("getConnectionInfo", "Misc");
-                $this->addFunction("getUsersList", "Users");
-
-            case 'datapoint':
-                $this->addFunction("addBasicTable", "Main", '/DataLayer/Main/Requests/AddBasicTable');
-
-                $this->addFunction("addUser", "Users", '/DataLayer/Users/Requests/AddUser');
-                $this->addFunction("login", "Users", '/DataLayer/Users/Requests/Login');
-                $this->addFunction("quit", "Users", '/Requests/User');
-                $this->addSecuredFunction("changeUserType", "Users", '/DataLayer/Users/Requests/ChangeUserType', "ChangeUserType", 2);
-
-                $this->addFunction("getImageList", "Gallery", '/DataLayer/Gallery/Requests/GetImageList');
-                $this->addFunction("getImageCount", "Gallery", '/Requests/Dummy');
-                $this->addSecuredFunction("addImage", "Gallery", '/DataLayer/Gallery/Requests/AddImage', "addImage", 2);
-                $this->addSecuredFunction("removeImage", "Gallery", '/DataLayer/Gallery/Requests/ImageId', "addImage", 2);
-
-                $this->addFunction("getSlides", "Slider", '/DataLayer/Slider/Requests/GetSlides');
-                $this->addFunction("getSlidesByTag", "Slider", '/DataLayer/Slider/Requests/GetSlidesByTag');
-                $this->addSecuredFunction("addSlide", "Slider", '/DataLayer/Slider/Requests/AddSlide', "addSlide", 2);
-                $this->addSecuredFunction("removeSlide", "Slider", '/DataLayer/Slider/Requests/SlideId', "removeSlide", 2);
-
-                break;
-        }
-        */
     }
 
     protected function getSecurityLayer(){
         return new \DataLayer\SecurityLayer();
     }
 
+    /*
     public function processException(\Exception $e){
-        $e = $this->getSecurityLayer()->checkException($e);
-
         if ($e instanceof \Exceptions\DefaultException){
             if ($this->getIsDatapoint()) {
                 $message = array('errorMessage' => $e->getMessage());
@@ -91,7 +59,9 @@ class DataLayer extends \Engine\DataLayer {
 
         $this->answer($e->getMessage(), $e->getCode());
     }
+    */
 
+    /*
     protected function answer($message, $code, $needReload = false){
         if ($this->getIsDatapoint()){
             $object = new \stdClass();
@@ -111,22 +81,5 @@ class DataLayer extends \Engine\DataLayer {
             }
         }
     }
-
-    protected $IsDatapoint;
-
-    /**
-     * @return mixed
-     */
-    public function getIsDatapoint()
-    {
-        return $this->IsDatapoint;
-    }
-
-    /**
-     * @param mixed $IsDatapoint
-     */
-    public function setIsDatapoint($IsDatapoint)
-    {
-        $this->IsDatapoint = $IsDatapoint;
-    }
+    */
 }

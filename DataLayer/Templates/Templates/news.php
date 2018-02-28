@@ -1,5 +1,5 @@
 <?php
-$dataLayer = new \DataLayer\DataLayer();
+$dataLayer = \DataLayer\DataLayer::getInstance();
 $exception = null;
 $fullNews = null;
 $pageCount = 1;

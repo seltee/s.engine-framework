@@ -1,9 +1,11 @@
 <?php
 namespace Engine;
 
-abstract class DataLayer{
+use Engine\Creational\Singleton;
+
+abstract class DataLayer extends Singleton {
     abstract protected function getSecurityLayer();
-    abstract public function processException(\Exception $e);
+    abstract protected function doLoads();
 
     public function loadPackage($packageName){
         $packagePath = '\\DataLayer\\'.$packageName.'\\Package';
@@ -86,6 +88,9 @@ abstract class DataLayer{
         if (is_object($ret)) {
             try {
                 $ret = $ret->Run($request);
+                if ($ret instanceof SourceFacade){
+                    $ret = $ret->data;
+                }
             }catch (\Exception $e){
                 $this->processException($e);
             }
@@ -157,5 +162,15 @@ abstract class DataLayer{
             return $reference;
         }
         return array();
+    }
+
+    final public function processException(\Exception $e){
+        $e = $this->getSecurityLayer()->checkException($e);
+
+        throw $e;
+    }
+
+    final protected function build(){
+        $this->doLoads();
     }
 }

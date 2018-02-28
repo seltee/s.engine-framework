@@ -1,5 +1,5 @@
 <?php
-$dataLayer = new \DataLayer\DataLayer();
+$dataLayer = \DataLayer\DataLayer::getInstance();
 
 $images = null;
 $gallerySize = null;

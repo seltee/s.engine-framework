@@ -6,9 +6,9 @@ var webpack = require('webpack');
 //change this to local domain where your apache or nginx running
 var backendServer = 'http://sengine';
 
-console.log("\n\n");
+console.log("\n");
 console.log("Backend server: " + backendServer);
-console.log("\n\n");
+console.log("\n");
 
 module.exports = {
     entry: [

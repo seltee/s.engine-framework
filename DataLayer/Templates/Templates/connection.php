@@ -1,9 +1,9 @@
 <?php
-$dataLayer = new \DataLayer\DataLayer();
+$dataLayer = \DataLayer\DataLayer::getInstance();
 
 $result = $dataLayer->processRequest("getConnectionInfo", new \Requests\Dummy())['data'];
-
 $dbTables = $result['DBTables'];
+
 ?>
 
 <h1>Data Base information</h1>

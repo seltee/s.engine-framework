@@ -10,8 +10,8 @@ abstract class MYSQLiDataSourceReq extends MYSQLiDataSource
         $dataArray = $this->GetDataArray($request);
 
         try {
-            $result = $connection->prepare($string);
-            $result->execute($dataArray);
+            $this->result = $connection->prepare($string);
+            $this->result->execute($dataArray);
         }catch (\PDOException $e){
             throw new \Exceptions\InternalException($e->getMessage());
         }
